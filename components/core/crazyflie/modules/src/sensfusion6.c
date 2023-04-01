@@ -190,7 +190,7 @@ static void sensfusion6UpdateQImpl(float gx, float gy, float gz, float ax, float
   float halfex, halfey, halfez;
   float qa, qb, qc;
 
-  gx = gx * M_PI_F / 180;
+  gx = gx * M_PI_F / 180; // 角度转弧度
   gy = gy * M_PI_F / 180;
   gz = gz * M_PI_F / 180;
 
@@ -204,24 +204,24 @@ static void sensfusion6UpdateQImpl(float gx, float gy, float gz, float ax, float
     az *= recipNorm;
 
     // Estimated direction of gravity and vector perpendicular to magnetic flux
-    halfvx = q1 * q3 - q0 * q2;
-    halfvy = q0 * q1 + q2 * q3;
-    halfvz = q0 * q0 - 0.5f + q3 * q3;
+    halfvx = q1 * q3 - q0 * q2; // 将飞行器上次计算得到的姿态（四元数）换算成“方向余弦矩阵”中第三列的三个元素，
+    halfvy = q0 * q1 + q2 * q3; // 地理坐标系的重力向量，转到机体坐标系，正好是这三个元素。
+    halfvz = q0 * q0 - 0.5f + q3 * q3; // 所以其实就是用上一次机体姿态换算出在当前机体坐标系的重力单位分量。
 
     // Error is sum of cross product between estimated and measured direction of gravity
-    halfex = (ay * halfvz - az * halfvy);
-    halfey = (az * halfvx - ax * halfvz);
-    halfez = (ax * halfvy - ay * halfvx);
+    halfex = (ay * halfvz - az * halfvy); // 在机体坐标系上，加速度计测出来的重力向量是ax，ay，az。
+    halfey = (az * halfvx - ax * halfvz); // 由上次姿态解算的姿态（简单认为是陀螺仪积分）推导出的重力向量是halfvx，y，z。
+    halfez = (ax * halfvy - ay * halfvx); // 它们的误差，就是上次姿态解算(简单认为是陀螺仪积分)的姿态与加速度计所测的姿态间的误差。
 
     // Compute and apply integral feedback if enabled
-    if(twoKi > 0.0f)
+    if(twoKi > 0.0f) // 使用叉积误差做PI修正陀螺仪零偏
     {
       integralFBx += twoKi * halfex * dt;  // integral error scaled by Ki
       integralFBy += twoKi * halfey * dt;
       integralFBz += twoKi * halfez * dt;
       gx += integralFBx;  // apply integral feedback
       gy += integralFBy;
-      gz += integralFBz;
+      gz += integralFBz; 
     }
     else
     {
@@ -246,7 +246,7 @@ static void sensfusion6UpdateQImpl(float gx, float gy, float gz, float ax, float
   q0 += (-qb * gx - qc * gy - q3 * gz);
   q1 += (qa * gx + qc * gz - q3 * gy);
   q2 += (qa * gy - qb * gz + q3 * gx);
-  q3 += (qa * gz + qb * gy - qc * gx);
+  q3 += (qa * gz + qb * gy - qc * gx); // 使用修正后的陀螺仪数据对时间积分，得到当前姿态
 
   // Normalise quaternion
   recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);

@@ -245,7 +245,7 @@ static void stabilizerTask(void* param)
 
   // Wait for sensors to be calibrated
   lastWakeTime = xTaskGetTickCount ();
-  while(!sensorsAreCalibrated()) {
+  while(!sensorsAreCalibrated()) { // freertos的时间片为1ms，下一次tick再看有没有calibrated
     vTaskDelayUntil(&lastWakeTime, F2T(RATE_MAIN_LOOP));
   }
   // Initialize tick to something else then 0

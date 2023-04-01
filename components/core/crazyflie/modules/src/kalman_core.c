@@ -542,7 +542,7 @@ void kalmanCoreUpdateWithFlow(kalmanCoreData_t *this, const flowMeasurement_t *f
     hx[KC_STATE_Z] = (Npix * flow->dt / thetapix) * ((this->R[2][2] * dx_g) / (-z_g * z_g));
     hx[KC_STATE_PX] = (Npix * flow->dt / thetapix) * (this->R[2][2] / z_g);
 
-    //First update
+    // First update
     scalarUpdate(this, &Hx, measuredNX - predictedNX, flow->stdDevX);
 
     // ~~~ Y velocity prediction and update ~~~
