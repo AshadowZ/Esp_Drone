@@ -72,7 +72,7 @@ static void flowdeckTask(void *param)
     while (1) {
 // if task watchdog triggered,flow frequency should set lower
 #ifdef TARGET_MCU_ESP32S2
-        vTaskDelay(10);
+        vTaskDelay(20); // change from 10 to 20
 #elif defined(TARGET_MCU_ESP32)
         vTaskDelay(10);
 #endif
@@ -94,7 +94,7 @@ static void flowdeckTask(void *param)
 
 // if task watchdog triggered,flow frequency should set lower
 #ifdef TARGET_MCU_ESP32S2
-            flowData.dt = 0.01;
+            flowData.dt = 0.02; // change
 #elif defined(TARGET_MCU_ESP32)
             flowData.dt = 0.01;
 #endif

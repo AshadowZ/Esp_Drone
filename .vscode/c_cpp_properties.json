@@ -5,10 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**"
             ],
-            "defines": [],
             "cStandard": "c17",
             "cppStandard": "c++14",
-            "compilerPath":"/home/bitcraze/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin/xtensa-esp32s2-elf-gcc",
+            "compilerPath":"/home/lianjie/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin/xtensa-esp32s2-elf-gcc",
             "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }
     ],

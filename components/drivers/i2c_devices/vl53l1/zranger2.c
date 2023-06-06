@@ -132,6 +132,9 @@ void zRanger2Task(void* arg)
     if (range_last < RANGE_OUTLIER_LIMIT) {
       float distance = (float)range_last * 0.001f; // Scale from [mm] to [m]
       float stdDev = expStdA * (1.0f  + expf( expCoeff * (distance - expPointA)));
+      // // 打印测量值,为啥printf会导致stackflow？目前读数都是-1.185，估计是炸了
+      // printf("current tof measurement: %f\n", distance);
+      // //
       rangeEnqueueDownRangeInEstimator(distance, stdDev, xTaskGetTickCount());
     }
   }

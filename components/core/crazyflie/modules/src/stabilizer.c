@@ -272,6 +272,7 @@ static void stabilizerTask(void* param)
         stateEstimatorSwitchTo(estimatorType);
         estimatorType = getStateEstimator();
       }
+
       // allow to update controller dynamically
       if (getControllerType() != controllerType) {
         controllerInit(controllerType);

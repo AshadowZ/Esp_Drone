@@ -36,6 +36,9 @@
         "istream": "c",
         "ostream": "c",
         "sstream": "c",
-        "*.ipp": "c"
-    }
+        "*.ipp": "c",
+        "sensfusion6.h": "c",
+        "iterator": "c"
+    },
+    "idf.adapterTargetName": "esp32s2"
 }

@@ -509,18 +509,19 @@ static void sensorsDeviceInit(void)
 
 #ifdef SENSORS_ENABLE_FLOW_PMW3901
 
-    flowdeck2Init();
+    // flowdeck2Init();
 
-    if (flowdeck2Test() == true) {
-        isPmw3901Present = true;
-        setCommandermode(POSHOLD_MODE);
-        DEBUG_PRINTI("PMW3901 SPI connection [OK].\n");
-    } else {
-        //TODO: Should sensor test fail hard if no connection
-        DEBUG_PRINTW("PMW3901 SPI connection [FAIL].\n");
-    }
+    // if (flowdeck2Test() == true) {
+    //     isPmw3901Present = true;
+    //     setCommandermode(POSHOLD_MODE);
+    //     DEBUG_PRINTI("PMW3901 SPI connection [OK].\n");
+    // } else {
+    //     //TODO: Should sensor test fail hard if no connection
+    //     DEBUG_PRINTW("PMW3901 SPI connection [FAIL].\n");
+    // }
 
-
+    // 不使用flow
+    DEBUG_PRINTW("PMW3901 not use [FAIL].\n");
 
 #endif
 
